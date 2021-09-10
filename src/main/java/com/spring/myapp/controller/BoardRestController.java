@@ -19,12 +19,12 @@ import com.spring.myapp.vo.MemberVO;
 @RequestMapping("data")
 public class BoardRestController {
 
-	private Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private Logger logger = LoggerFactory.getLogger(BoardRestController.class);
 
 	@Autowired
 	BoardService boardService;
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", produces = "application/json; charset=utf8", method = RequestMethod.GET)
 	public String getList() throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<MemberVO> member_list = boardService.member_list();
