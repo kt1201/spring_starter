@@ -35,33 +35,31 @@
 	function fn_boardlist() {
 		$.ajax({
 	        type : "GET",
-	        url : "<c:url value='/data/list'/>",
-	        success : function(returnData, status) {
-	            if(status == "success") {
-	                var list = returnData.member_list;
-	                
-					$(".resultTbody").empty();
-					// 테이블
-	                if(list.length > 0){
-	                	/* 표 생성 */
-	                	var str = '';
-	                	$.each(list, function(i, value){
-							str += '<tr onclick="location.href=\'/detail/' + value.name +'\'">'
-							str += '<td>' + value.name + '</td>'
-							str += '<td>' + value.age + '</td>'
-							str += '<td>' + value.score + '</td>'
-// 							str += '</tr>'
-	                	});
-	                	$(".resultTbody").append(str);
-	                } else {
-						$(".resultTbody").empty();
-	                	var str = $("<p/>").text("데이터가 없습니다.");
-	                	$(".resultTbody").append(str);
-	                }
+	        url : "/data/list",
+	        dataType : 'json',
+	        success : function(returnData) {
+	            var list = returnData.member_list;
+	
+	            $(".resultTbody").empty();
+	            // 테이블
+	            if(list.length > 0){
+	                /* 표 생성 */
+	                var str = '';
+	                $.each(list, function(i, value){
+	                    str += '<tr>'
+	                    str += '<td>' + value.name + '</td>'
+	                    str += '<td>' + value.age + '</td>'
+	                    str += '<td>' + value.score + '</td>'
+	                    // 							str += '</tr>'
+	                });
+	                $(".resultTbody").append(str);
+	            } else {
+	                $(".resultTbody").empty();
+	                var str = $("<p/>").text("데이터가 없습니다.");
+	                $(".resultTbody").append(str);
 	            }
 	        },
 	        error: function (xhr, ajaxOptions, thrownError) {
-	            
 	            alert(xhr.status);
 	        }
 		});
