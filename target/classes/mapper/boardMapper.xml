@@ -7,4 +7,13 @@
 		SELECT *
 		FROM member
 	</select>
+	
+	<select id="corona_visiting_list" resultType="com.spring.myapp.vo.CoronaVisitingVO">
+		select *
+		from corona_visiting
+		where longitute is not null
+		and latitute is not null
+		order by patientid, visitingorder
+		limit 1000
+	</select>
 </mapper>

@@ -50,7 +50,7 @@
 	                    str += '<td>' + value.name + '</td>'
 	                    str += '<td>' + value.age + '</td>'
 	                    str += '<td>' + value.score + '</td>'
-	                    // 							str += '</tr>'
+	                    str += '</tr>'
 	                });
 	                $(".resultTbody").append(str);
 	            } else {
