@@ -1,7 +1,45 @@
 @CHARSET "UTF-8";
 
-body {
-    margin: 50px;
+header {
+    background-color: black;
+    color: white;
+    display: inline-block;
+    padding: 8px;
+    width: 100%;
+}
+
+footer {
+	margin-top: 50px;
+	padding-top: 50px;
+	text-align: center;
+    width: 100%;
+}
+
+.menu {
+	display: inline-flex;
+}
+
+.logo {
+	float: left;
+}
+
+.navigation {
+	float: right;
+	margin-top: 12px
+}
+
+.navigation a {
+	font-size: 20px;
+    color: white;
+    margin: 5px;
+}
+
+.page_title {
+	margin-bottom: 30px;
+}
+
+.board {
+	margin : 50px
 }
 
 .center {
@@ -10,11 +48,16 @@ body {
 }
 
 .search {
-	width: 500px 
+	width: 500px;
 }
 
 .pagination {
-	display: block
+	display: block;
+	font-size: 20px;
+}
+
+.page {
+	margin: 3px;
 }
 
 select {
