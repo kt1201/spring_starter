@@ -3,17 +3,39 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.myapp.mapper.BoardMapper">
-	<select id="member_list" resultType="com.spring.myapp.vo.MemberVO">
+
+	<!-- 게시물 검색 -->
+	<select id="board" resultType="com.spring.myapp.vo.BoardVO" parameterType="com.spring.myapp.vo.SearchVO">
 		SELECT *
-		FROM member
+		FROM board
+		<if test="searchkey == 'title'">
+    		where title like concat('%', #{searchword}, '%')
+  		</if>
+  		<if test="searchkey == 'writer'">
+    		where writer like concat('%', #{searchword}, '%')
+  		</if>
+  		<if test="searchkey == 'all'">
+    		where title like concat('%', #{searchword}, '%') or writer like concat('%', #{searchword}, '%')
+  		</if>
+  		LIMIT #{cntPerPage} OFFSET #{start}-1
 	</select>
 	
-	<select id="corona_visiting_list" resultType="com.spring.myapp.vo.CoronaVisitingVO">
-		select *
-		from corona_visiting
-		where longitute is not null
-		and latitute is not null
-		order by patientid, visitingorder
-		limit 1000
+	<!-- 게시물 총 건수 -->
+	<select id="board_cnt" resultType="int" parameterType="com.spring.myapp.vo.SearchVO">
+		SELECT COUNT(*)
+		FROM board
+		<if test="searchkey == 'title'">
+    		where title like concat('%', #{searchword}, '%')
+  		</if>
+  		<if test="searchkey == 'writer'">
+    		where writer like concat('%', #{searchword}, '%')
+  		</if>
+  		<if test="searchkey == 'all'">
+    		where title like concat('%', #{searchword}, '%') or writer like concat('%', #{searchword}, '%')
+  		</if>
 	</select>
+	
+	<insert id="submit" parameterType="com.spring.myapp.vo.BoardVO">
+		insert into boardlist values(#{title}, #{writer}, #{contents})
+	</insert>
 </mapper>

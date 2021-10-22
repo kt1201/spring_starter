@@ -2,8 +2,17 @@ package com.spring.myapp.service;
 
 import java.util.List;
 
-import com.spring.myapp.vo.MemberVO;
+import com.spring.myapp.vo.BoardVO;
+import com.spring.myapp.vo.SearchVO;
 
 public interface BoardService {
-	public List<MemberVO> member_list() throws Exception;
+	
+	//게시물 조회
+	public List<BoardVO> board(SearchVO searchVO) throws Exception;
+	
+	//게시물 건수
+	public int board_cnt(SearchVO searchVO) throws Exception;
+	
+	//게시물 등록
+	public void submit(BoardVO boardVO) throws Exception;
 }
