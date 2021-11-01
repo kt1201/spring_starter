@@ -91,3 +91,7 @@ select:focus {
 select:disabled {
   opacity: 0.5;
 }
+
+table a {
+	cursor: hand;
+}
