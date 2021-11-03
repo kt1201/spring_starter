@@ -29,9 +29,14 @@ public class BoardServiceImpl implements BoardService {
 		return board_cnt;
 	}
 
-	@Override // insert = return값 없음 ====> 변수 저장 XXX
-	public void submit(BoardVO boardVO) throws Exception {
-		boardMapper.submit(boardVO);
+	@Override
+	public void insert(BoardVO boardVO) throws Exception {
+		boardMapper.insert(boardVO);
+	}
+	
+	@Override
+	public void update(BoardVO boardVO) throws Exception {
+		boardMapper.update(boardVO);
 	}
 
 }

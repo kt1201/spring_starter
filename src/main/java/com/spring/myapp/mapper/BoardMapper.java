@@ -16,5 +16,8 @@ public interface BoardMapper {
 	public int board_cnt(SearchVO searchVO) throws Exception;
 	
 	//게시물 등록
-	public void submit(BoardVO boardVO) throws Exception;
+	public void insert(BoardVO boardVO) throws Exception;
+
+	// 게시물 수정
+	public void update(BoardVO boardVO) throws Exception;
 }

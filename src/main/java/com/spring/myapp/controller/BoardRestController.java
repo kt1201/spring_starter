@@ -48,11 +48,4 @@ public class BoardRestController {
 		return data;
 	}
 	
-
-	// 게시물 등록
-	@RequestMapping(value="/boardSubmit", produces ="application/json; charset=utf8", method = RequestMethod.POST)
-	public void setBoardList(BoardVO boardVO) throws Exception {
-		boardService.submit(boardVO);
-	}
-	
 }

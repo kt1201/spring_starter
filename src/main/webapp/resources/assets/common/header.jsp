@@ -7,6 +7,6 @@
 	</div>
 	<div class="navigation">
 		<a href="/">게시물 목록</a>
-		<a href="/reg_post">게시물 등록</a>
+		<a data-bs-toggle="modal" href="#boardInsertModalToggle" role="button">게시물 등록</a>
 	</div>
 </header>

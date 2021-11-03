@@ -17,6 +17,7 @@
   		<if test="searchkey == 'all'">
     		where title like concat('%', #{searchword}, '%') or writer like concat('%', #{searchword}, '%')
   		</if>
+  		ORDER BY reg_date DESC
   		LIMIT #{cntPerPage} OFFSET #{start}-1
 	</select>
 	
@@ -35,7 +36,13 @@
   		</if>
 	</select>
 	
-	<insert id="submit" parameterType="com.spring.myapp.vo.BoardVO">
-		insert into boardlist values(#{title}, #{writer}, #{contents})
+	<insert id="insert" parameterType="com.spring.myapp.vo.BoardVO">
+		insert into board (title, writer, contents, file_path, reg_date) values(#{title}, #{writer}, #{contents}, #{file_path}, now())
 	</insert>
+	
+	<update id="update" parameterType="com.spring.myapp.vo.BoardVO">
+		update board
+		set title = #{title}, writer = #{writer}, contents = #{contents}, file_path = #{file_path}, reg_date = now()
+		where id = #{id} 
+	</update>
 </mapper>

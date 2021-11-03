@@ -36,77 +36,134 @@
 			<button class="btn btn-outline-secondary" type="button" id="search">검색</button>
 		</div>
 	</div>
-
-
-	<!-- 게시물 상세 Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-xl">
+	
+	
+	<!-- 게시물 등록 -->
+	<div class="modal fade" id="boardInsertModalToggle" aria-hidden="true"
+		aria-labelledby="boardInsertModalToggleLabel" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">게시물 상세</h5>
+					<h5 class="modal-title" id="boardInsertModalToggleLabel">게시물 상세</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
+					<form id="insert" action="/insert" method="post">
+						<div class="title">
+							<label for="title_insert" class="col-form-label">제목</label> <input
+								type="text" class="form-control" id="title_insert"
+								name="title">
+						</div>
+						<br>
+						<div class="writer">
+							<label for="writer_insert" class="col-form-label">작성자</label> <input
+								type="text" class="form-control" id="writer_insert"
+								name="writer">
+						</div>
+						<br>
+						<div class="contents">
+							<label for="contents_insert" class="col-form-label">내용</label> <input
+								type="text" class="form-control" id="contents_insert"
+								name="contents">
+						</div>
+						<br>
+						<div class="file">
+							<label for="file_insert" class="col-form-label">파일첨부</label> <input
+								type="file" class="form-control" id="file_insert"
+								name="file_path">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					<button class="btn btn-primary" id="insert_btn">저장</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 게시물 상세 -->
+	<div class="modal fade" id="boardDetailModalToggle" aria-hidden="true"
+		aria-labelledby="boardDetailModalToggleLabel" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="boardDetailModalToggleLabel">게시물 상세</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" id="id_detail">
 					<div class="title">
-						<label for="title_input" class="col-form-label">제목</label>
-						<input type="text" class="form-control" id="title_input" name="title_input" disabled>
-					</div><br>
+						<label for="title_detail" class="col-form-label">제목</label> <input
+							type="text" class="form-control" id="title_detail" disabled>
+					</div>
+					<br>
 					<div class="writer">
-						<label for="writer_input" class="col-form-label">작성자</label>
-						<input type="text" class="form-control" id="writer_input" name="writer_input" disabled>
-					</div><br>
+						<label for="writer_detail" class="col-form-label">작성자</label> <input
+							type="text" class="form-control" id="writer_detail" disabled>
+					</div>
+					<br>
 					<div class="contents">
-						<label for="contents_input" class="col-form-label">내용</label>
-						<input type="text" class="form-control" id="contents_input" name="contents_input" disabled>
-					</div><br>
+						<label for="contents_detail" class="col-form-label">내용</label> <input
+							type="text" class="form-control" id="contents_detail" disabled>
+					</div>
+					<br>
 					<div class="file">
-						<label for="file_input" class="col-form-label">파일첨부</label>
-						<input type="file" class="form-control" id="file_input" name="file_input" disabled>
+						<label for="file_detail" class="col-form-label">파일첨부</label> <input
+							type="file" class="form-control" id="file_detail" disabled>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" data-bs-target="exampleModal2" data-bs-toggle="modal">수정</button> -->
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					<button class="btn btn-primary" id="go_update_btn" data-bs-target="#boardUpdateModalToggle" data-bs-toggle="modal">수정</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<!-- 게시물 수정 Modal -->
-	<div class="modal fade" id="exampleModal2" tabindex="-1"
-		aria-labelledby="exampleModalLabel2" aria-hidden="true">
-		<div class="modal-dialog modal-xl">
+	<!-- 게시물 수정 -->
+	<div class="modal fade" id="boardUpdateModalToggle" aria-hidden="true"
+		aria-labelledby="boardUpdateModalToggleLabel" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel2">게시물 상세</h5>
+					<h5 class="modal-title" id="boardUpdateModalToggleLabel">게시물 수정</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="title">
-						<label for="title_input" class="col-form-label">제목</label>
-						<input type="text" class="form-control" id="title_reinput" name="title_reinput">
-					</div><br>
-					<div class="writer">
-						<label for="writer_input" class="col-form-label">작성자</label>
-						<input type="text" class="form-control" id="writer_reinput" name="writer_reinput">
-					</div><br>
-					<div class="contents">
-						<label for="contents_input" class="col-form-label">내용</label>
-						<input type="text" class="form-control" id="contents_reinput" name="contents_reinput">
-					</div><br>
-					<div class="file">
-						<label for="file_input" class="col-form-label">파일첨부</label>
-						<input type="file" class="form-control" id="file_reinput" name="file_reinput">
-					</div>
+					<form id="update" action="/update" method="post">
+						<input type="hidden" id="id_update" name="id">
+						<div class="title">
+							<label for="title_update" class="col-form-label">제목</label> <input
+								type="text" class="form-control" id="title_update"
+								name="title">
+						</div>
+						<br>
+						<div class="writer">
+							<label for="writer_update" class="col-form-label">작성자</label> <input
+								type="text" class="form-control" id="writer_update"
+								name="writer">
+						</div>
+						<br>
+						<div class="contents">
+							<label for="contents_update" class="col-form-label">내용</label> <input
+								type="text" class="form-control" id="contents_update"
+								name="contents">
+						</div>
+						<br>
+						<div class="file">
+							<label for="file_update" class="col-form-label">파일첨부</label> <input
+								type="file" class="form-control" id="file_update"
+								name="file_path">
+						</div>
+					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary">저장</button>
+					<button class="btn btn-secondary" data-bs-target="#boardDetailModalToggle" data-bs-toggle="modal">취소</button>
+					<button class="btn btn-primary" id="update_btn" data-bs-dismiss="modal">저장</button>
 				</div>
 			</div>
 		</div>
@@ -143,7 +200,17 @@
 											list,
 											function(i, value) {
 												str += '<tr>'
-												str += '<td><a type="button" onclick=\'get_detail("'+ value.title +'", "'+ value.writer +'", "'+ value.contents +'", "'+ value.file_path +'",)\' data-bs-toggle="modal" data-bs-target="#exampleModal">'
+												str += '<td><a type="button" onclick=\'get_detail("'
+														+ value.id
+														+ '", "'
+														+ value.title
+														+ '", "'
+														+ value.writer
+														+ '", "'
+														+ value.contents
+														+ '", "'
+														+ value.file_path
+														+ '",)\' data-bs-toggle="modal" href="#boardDetailModalToggle" role="button">'
 														+ value.title
 														+ '</a></td>'
 												str += '<td>' + value.writer
@@ -215,12 +282,35 @@
 		boardlist(condition, title, 1, 10);
 	})
 	
-	function get_detail(title, writer, contents, file_path) {
-		$('.modal-body #title_input').val(title);
-		$('.modal-body #writer_input').val(writer);
-		$('.modal-body #contents_input').val(contents);
-		$('.modal-body #file_input').val(file_path);
+	$('#insert_btn').click(function() {
+		$('#insert').submit()
+	})
+
+	function get_detail(id, title, writer, contents, file_path) {
+		$('.modal-body #id_detail').val(id);
+		$('.modal-body #title_detail').val(title);
+		$('.modal-body #writer_detail').val(writer);
+		$('.modal-body #contents_detail').val(contents);
+		$('.modal-body #file_detail').val(file_path);
 	}
+	
+	$('#go_update_btn').click(function() {		
+		const id = document.getElementById("id_detail").value;
+		const title = document.getElementById("title_detail").value;
+		const writer = document.getElementById("writer_detail").value;
+		const contents = document.getElementById("contents_detail").value;
+		const file = document.getElementById("file_detail").value;
+
+		$('.modal-body #id_update').val(id);
+		$('.modal-body #title_update').val(title);
+		$('.modal-body #writer_update').val(writer);
+		$('.modal-body #contents_update').val(contents);
+		$('.modal-body #file_update').val(file);
+	})
+	
+	$('#update_btn').click(function() {
+		$('#update').submit()
+	})
 
 	window.onload = boardlist("all", "", 1, 10);
 </script>
