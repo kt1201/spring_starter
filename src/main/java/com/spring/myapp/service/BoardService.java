@@ -18,4 +18,7 @@ public interface BoardService {
 
 	// 게시물 수정
 	public void update(BoardVO boardVO) throws Exception;
+	
+	// id 해당 게시물
+	public BoardVO getOneBoard(int id) throws Exception;
 }

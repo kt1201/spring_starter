@@ -36,13 +36,20 @@
   		</if>
 	</select>
 	
+	<!-- 게시물 등록 -->
 	<insert id="insert" parameterType="com.spring.myapp.vo.BoardVO">
 		insert into board (title, writer, contents, file_path, reg_date) values(#{title}, #{writer}, #{contents}, #{file_path}, now())
 	</insert>
 	
+	<!-- 게시물 수정 -->
 	<update id="update" parameterType="com.spring.myapp.vo.BoardVO">
 		update board
 		set title = #{title}, writer = #{writer}, contents = #{contents}, file_path = #{file_path}, reg_date = now()
 		where id = #{id} 
 	</update>
+	
+	<!-- id에 해당하는 게시물 -->
+	<select id="getOneBoard" resultType="com.spring.myapp.vo.BoardVO" parameterType="int">
+		select * from board where id = #{id}
+	</select>
 </mapper>

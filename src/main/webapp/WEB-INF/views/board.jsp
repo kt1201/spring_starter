@@ -49,7 +49,7 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="insert" action="/insert" method="post">
+					<form id="insert" action="/insert" method="post" enctype="multipart/form-data">
 						<div class="title">
 							<label for="title_insert" class="col-form-label">제목</label> <input
 								type="text" class="form-control" id="title_insert"
@@ -71,7 +71,7 @@
 						<div class="file">
 							<label for="file_insert" class="col-form-label">파일첨부</label> <input
 								type="file" class="form-control" id="file_insert"
-								name="file_path">
+								name="file">
 						</div>
 					</form>
 				</div>
@@ -111,8 +111,11 @@
 					</div>
 					<br>
 					<div class="file">
-						<label for="file_detail" class="col-form-label">파일첨부</label> <input
-							type="file" class="form-control" id="file_detail" disabled>
+						<label for="file_detail" class="col-form-label">파일첨부</label>
+						<div id="file_detail">
+							<!-- 업로드된 파일 목록 -->
+						</div>
+						<input type="hidden" id="file_list_detail">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -134,7 +137,7 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="update" action="/update" method="post">
+					<form id="update" action="/update" method="post" enctype="multipart/form-data">
 						<input type="hidden" id="id_update" name="id">
 						<div class="title">
 							<label for="title_update" class="col-form-label">제목</label> <input
@@ -155,9 +158,11 @@
 						</div>
 						<br>
 						<div class="file">
-							<label for="file_update" class="col-form-label">파일첨부</label> <input
-								type="file" class="form-control" id="file_update"
-								name="file_path">
+							<label for="file_update" class="col-form-label">파일첨부</label>
+							<div id="file_update">
+								<!-- 업로드된 파일 목록 -->
+							</div>
+							<input type="file" class="form-control" name="file">
 						</div>
 					</form>
 				</div>
@@ -199,6 +204,13 @@
 									.each(
 											list,
 											function(i, value) {
+												const file_list = value.file_path.split(',')
+												let filename_list = []
+												for (let file of file_list) {
+													filename = file.split('\\')[file.split('\\').length-1]
+													filename_list.push(filename)
+												}
+												filename_list_str = '["' + filename_list.join('","') + '"]'
 												str += '<tr>'
 												str += '<td><a type="button" onclick=\'get_detail("'
 														+ value.id
@@ -208,9 +220,9 @@
 														+ value.writer
 														+ '", "'
 														+ value.contents
-														+ '", "'
-														+ value.file_path
-														+ '",)\' data-bs-toggle="modal" href="#boardDetailModalToggle" role="button">'
+														+ '", '
+														+ filename_list_str
+														+ ')\' data-bs-toggle="modal" href="#boardDetailModalToggle" role="button">'
 														+ value.title
 														+ '</a></td>'
 												str += '<td>' + value.writer
@@ -286,26 +298,41 @@
 		$('#insert').submit()
 	})
 
-	function get_detail(id, title, writer, contents, file_path) {
+ 	function get_detail(id, title, writer, contents, filename_list) {
 		$('.modal-body #id_detail').val(id);
 		$('.modal-body #title_detail').val(title);
 		$('.modal-body #writer_detail').val(writer);
 		$('.modal-body #contents_detail').val(contents);
-		$('.modal-body #file_detail').val(file_path);
+		$('.modal-body #file_list_detail').val(filename_list);
+		
+		$("#file_detail").empty()
+		for(let i=0; i<filename_list.length; i++) {
+			console.log(filename_list[i])
+			const str = "<a type='button' id='file" + i + "_detail' onclick='window.open(\"/filedownload?id=" + id + "\")'>" + filename_list[i] + "</a><br>"
+			$("#file_detail").append(str)
+			$('.modal-body #file'+ i + '_detail').text(filename_list[i]);
+		}
 	}
 	
 	$('#go_update_btn').click(function() {		
 		const id = document.getElementById("id_detail").value;
-		const title = document.getElementById("title_detail").value;
+ 		const title = document.getElementById("title_detail").value;
 		const writer = document.getElementById("writer_detail").value;
 		const contents = document.getElementById("contents_detail").value;
-		const file = document.getElementById("file_detail").value;
+		const filename_list = document.getElementById("file_list_detail").value.split(',');
 
 		$('.modal-body #id_update').val(id);
 		$('.modal-body #title_update').val(title);
 		$('.modal-body #writer_update').val(writer);
 		$('.modal-body #contents_update').val(contents);
-		$('.modal-body #file_update').val(file);
+
+		$("#file_update").empty()
+		for(let i=0; i<filename_list.length; i++) {
+			console.log(filename_list[i])
+			const str = "<a type='button' id='file" + i + "_update' onclick='window.open(\"/filedownload?id=" + id + "\")'>" + filename_list[i] + "</a>&nbsp<button type='button' class='btn btn-danger btn-sm'>삭제</button><br>"
+			$("#file_update").append(str)
+			$('.modal-body #file'+ i + '_update').text(filename_list[i]);
+		}
 	})
 	
 	$('#update_btn').click(function() {

@@ -39,4 +39,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.update(boardVO);
 	}
 
+	@Override
+	public BoardVO getOneBoard(int id) throws Exception {
+		BoardVO vo = boardMapper.getOneBoard(id);
+		return vo;
+	}
+
 }

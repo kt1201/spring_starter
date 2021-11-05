@@ -1,7 +1,7 @@
 package com.spring.myapp.vo;
 
 public class BoardVO { //VO를 굳이 table 이랑 같지 않아도 ㅇㅇㅇ
-//ctrl alt -----
+
 	private int id;
 	private String title;
 	private String writer;
@@ -44,6 +44,11 @@ public class BoardVO { //VO를 굳이 table 이랑 같지 않아도 ㅇㅇㅇ
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+	@Override
+	public String toString() {
+		return "BoardVO [id=" + id + ", title=" + title + ", writer=" + writer + ", contents=" + contents
+				+ ", file_path=" + file_path + ", reg_date=" + reg_date + "]";
 	}
 		
 }
